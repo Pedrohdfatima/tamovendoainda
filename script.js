@@ -13,6 +13,35 @@ function formatarMoeda(valor) {
 
 // FORMATAÇÃO DE MOEDA PRA BR 
 
+// Quando o DOM estiver pronto, ajustamos comportamento do campo de valor
+// Formata enquanto digita e ao perder o foco.
+document.addEventListener('DOMContentLoaded', () => {
+    const valorInput = document.getElementById('form-valor');
+    if (valorInput) {
+        valorInput.addEventListener('focus', () => {
+            // ao focar, remove formatação para facilitar edição
+            const n = valorInput.value.replace(/[^0-9,.-]/g, '');
+            valorInput.value = n;
+        });
+        
+        valorInput.addEventListener('input', () => {
+            // formata enquanto digita
+            const n = parseFloat(valorInput.value.replace(/[^0-9,.-]/g, '').replace(',', '.'));
+            if (!isNaN(n) && valorInput.value.length > 0) {
+                valorInput.value = formatarMoeda(n);
+            }
+        });
+        
+        valorInput.addEventListener('blur', () => {
+            // ao sair do campo, garante formatação
+            const n = parseFloat(valorInput.value.replace(/[^0-9,.-]/g, '').replace(',', '.'));
+            if (!isNaN(n)) {
+                valorInput.value = formatarMoeda(n);
+            }
+        });
+    }
+});
+
 
 
 // Navegação entre abas
@@ -33,7 +62,6 @@ function trocarAba(id, btn) {
 function toggleModal(abrir) {
     const modal = document.getElementById('modal-container');
     if (!abrir) {
-        document.getElementById('form-cliente').value = "";
         document.getElementById('form-valor').value = "";
         document.getElementById('form-obs').value = "";
         document.getElementById('form-fornecedor').selectedIndex = 0;
@@ -110,13 +138,13 @@ function cadastrarFornecedor() {
 function editarPedido(btn) {
     pedidoSendoEditado = btn.closest('tr');
     
-    const nome = pedidoSendoEditado.querySelector('.celula-nome').innerText;
+    const fornecedor = pedidoSendoEditado.querySelector('.celula-forn').innerText.replace('Forn: ', '');
     const valorRaw = pedidoSendoEditado.querySelector('.celula-valor').getAttribute('data-valor');
     const status = pedidoSendoEditado.querySelector('.status-badge').innerText;
     const obs = pedidoSendoEditado.querySelector('.celula-obs').innerText.replace('Obs: ', '');
 
-    document.getElementById('form-cliente').value = nome;
-    document.getElementById('form-valor').value = valorRaw;
+    document.getElementById('form-valor').value = formatarMoeda(parseFloat(valorRaw));
+    document.getElementById('form-fornecedor').value = fornecedor;
     document.getElementById('form-status').value = status;
     document.getElementById('form-obs').value = obs;
 
@@ -136,16 +164,19 @@ function editarPedido(btn) {
 
     // EDIÇÃO DE PEDIDOS SALVAR (EXTREMAMENTE IMPORTANTE CUIDADO AO MEXER !!!!!!!!!!!!!!)
 function salvarNovoPedido() {
-    const nome = document.getElementById('form-cliente').value;
-    const fornecedor = document.getElementById('form-fornecedor').value;
-    const valorTotal = parseFloat(document.getElementById('form-valor').value);
+    const fornecedor = document.getElementById('form-fornecedor').value.trim();
+    // retirar máscara de moeda antes de converter
+    const rawValor = document.getElementById('form-valor').value
+        .replace(/[^0-9,.-]/g, '')   // deixar apenas dígitos, ponto ou vírgula
+        .replace(',', '.');          // usar ponto para decimal
+    const valorTotal = parseFloat(rawValor);
     const status = document.getElementById('form-status').value;
     const obs = document.getElementById('form-obs').value;
 
-    if (!nome || isNaN(valorTotal)) return alert("Preencha nome e valor!");
+    if (!fornecedor || fornecedor === '') return alert("Selecione um fornecedor!");
+    if (isNaN(valorTotal) || valorTotal <= 0) return alert("Insira um valor válido!");
 
     if (pedidoSendoEditado) {
-        pedidoSendoEditado.querySelector('.celula-nome').innerText = nome;
         pedidoSendoEditado.querySelector('.celula-forn').innerText = `Forn: ${fornecedor || 'N/A'}`;
         pedidoSendoEditado.querySelector('.celula-valor').innerText = formatarMoeda(valorTotal);
         pedidoSendoEditado.querySelector('.celula-valor').setAttribute('data-valor', valorTotal);
@@ -162,7 +193,6 @@ function salvarNovoPedido() {
             <tr class="border-b text-gray-700 hover:bg-blue-50 transition">
                 <td class="p-4 font-mono text-xs">#PI-${idPedido}</td>
                 <td class="p-4">
-                    <div class="font-bold celula-nome">${nome}</div>
                     <div class="text-[10px] text-blue-500 uppercase font-black celula-forn">Forn: ${fornecedor || 'N/A'}</div>
                     <div class="text-[9px] text-gray-400 italic celula-obs">${obs ? 'Obs: ' + obs : ''}</div>
                 </td>
@@ -205,7 +235,7 @@ function removerPedido(btn) {
 
 // Recalcular KPIs
 function atualizarKPIs() {
-    let totalPedidos = 0, valorAcumulado = 0, pendentes = 0, emRota = 0;
+    let totalPedidos = 0, valorAcumulado = 0, pendentes = 0, emRota = 0, entregues = 0;
     const linhas = document.querySelectorAll('#corpo-tabela-pedidos tr');
 
     linhas.forEach(linha => {
@@ -214,14 +244,16 @@ function atualizarKPIs() {
         valorAcumulado += valor;
 
         const statusTexto = linha.querySelector('.status-badge').innerText.trim();
-        if (statusTexto === "Pendentes") pendentes++;
+        if (statusTexto === "Pendente") pendentes++;
         if (statusTexto === "Em Rota") emRota++;
+        if (statusTexto === "Entregue") entregues++;
     });
 
     document.getElementById('num-total').innerText = totalPedidos;
     document.getElementById('num-valor-total').innerText = formatarMoeda(valorAcumulado);
     document.getElementById('num-pendentes').innerText = pendentes;
     document.getElementById('num-rota').innerText = emRota;
+    document.getElementById('num-entregues').innerText = entregues;
 }
 
 
