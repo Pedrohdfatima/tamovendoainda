@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
 /**
 REDIRECIONAMENTO!!! (ACONTECE QUANDO APERTA EM ENTRAR OU CADASTRAR)
  */
-function irParaDashboard() {
+function irParaDash() {
 
 
     
