@@ -2,52 +2,84 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>LogiHub - Dashboard (HTML)</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LogiHub - Fatec Ipiranga</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body class="bg-gray-50 h-screen flex overflow-hidden">
+
+
+
+
+
+      <!-- ABA LATERAL PARA FICAR TROCANDO O QUE ESTOU VENDOOOOOOO -->
+
+
 
     <aside class="sidebar w-64 text-white flex flex-col p-4 shadow-2xl shrink-0">
         <div class="mb-8 p-2 flex items-center gap-2 border-b border-slate-800 pb-6">
             <i data-lucide="package" class="text-blue-500"></i>
             <span class="text-xl font-black tracking-tight">LOGIHUB <span class="text-blue-500">PI</span></span>
         </div>
+         
         
         <nav class="space-y-2">
             <button onclick="trocarAba('dashboard', this)" class="nav-btn active">
                 <i data-lucide="layout-dashboard" class="w-5 h-5"></i> Dashboard
             </button>
+
             <button onclick="trocarAba('pedidos', this)" class="nav-btn">
                 <i data-lucide="clipboard-list" class="w-5 h-5"></i> Lista de Pedidos
             </button>
+
             <button onclick="trocarAba('fornecedores', this)" class="nav-btn">
                 <i data-lucide="truck" class="w-5 h-5"></i> Fornecedores
             </button>
+
             <button onclick="trocarAba('perfil', this)" class="nav-btn">
-                <i data-lucide="user" class="w-5 h-5"></i> Perfil
-            </button>
+    <i data-lucide="user-cog" class="w-5 h-5"></i> Perfil
+        </button>
+
         </nav>
     </aside>
+
+
+        <!-- ABA LATERAL PARA FICAR TROCANDO O QUE ESTOU VENDOOOOOOO -->
+
+
+        
+
+
+
+
+
+                                       <!-- BOTÃO DE PEDIDO -->
 
     <div class="flex-col-container flex-1 flex flex-col h-full overflow-hidden">
         
         <header class="h-16 bg-white border-b flex items-center justify-between px-8 shrink-0">
             <h1 id="titulo-pagina" class="font-bold text-gray-800 text-lg uppercase tracking-wider">Dashboard</h1>
-            <div class="flex items-center gap-3">
-                <div id="header-usuario" class="hidden text-xs font-bold text-gray-600 bg-gray-100 px-3 py-2 rounded-full"></div>
-                <button id="btn-novo-pedido" onclick="toggleModal(true)" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-full font-bold flex gap-2 items-center transition-all">
-                    <i data-lucide="plus" class="w-5 h-5"></i> Novo Pedido
-                </button>
-            </div>
+            <button onclick="toggleModal(true)" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-full font-bold flex gap-2 items-center transition-all">
+                <i data-lucide="plus" class="w-5 h-5"></i> Novo Pedido
+            </button>
         </header>
 
+
+                   <!-- BOTÃO DE PEDIDO -->
+
+
+
+
+
+
+                                 <!-- Dashboard SOBRE OS GRAFICOS -->
+
+
         <main class="flex-1 overflow-y-auto p-8">
-            
             <div id="aba-dashboard" class="aba ativa">
-                <div class="grid grid-cols-1 md:grid-cols-5 gap-6"> 
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6"> 
                     <div class="kpi-card bg-white p-6 rounded-2xl shadow-sm border-b-4 border-purple-600">
                         <p class="text-gray-400 text-xs font-bold uppercase">Valor Total</p>
                         <h3 id="num-valor-total" class="text-2xl font-black text-purple-600 font-mono">R$ 0,00</h3>
@@ -60,16 +92,22 @@
                         <p class="text-gray-400 text-xs font-bold uppercase">Pendentes</p>
                         <h3 id="num-pendentes" class="text-2xl font-black">0</h3>
                     </div>
-                    <div class="kpi-card bg-white p-6 rounded-2xl shadow-sm border-b-4 border-orange-500">
+                    <div class="kpi-card bg-white p-6 rounded-2xl shadow-sm border-b-4 border-green-500">
                         <p class="text-gray-400 text-xs font-bold uppercase">Em Rota</p>
                         <h3 id="num-rota" class="text-2xl font-black">0</h3>
                     </div>
-                    <div class="kpi-card bg-white p-6 rounded-2xl shadow-sm border-b-4 border-green-500">
-                        <p class="text-gray-400 text-xs font-bold uppercase">Entregue</p>
-                        <h3 id="num-entregue" class="text-2xl font-black text-green-600">0</h3>
-                    </div>
                 </div>
             </div>
+
+
+                              <!-- Dashboard SOBRE OS GRAFICOS AINDA ADD O BI -->
+
+
+
+
+
+
+                            <!-- LISTA DE PEDIDOS ÁREA!!!!!!!!! -->
 
             <div id="aba-pedidos" class="aba">
                 <div class="bg-white rounded-2xl shadow-sm overflow-hidden border">
@@ -88,88 +126,133 @@
                 </div>
             </div>
 
+
+                                <!-- LISTA DE PEDIDOS ÁREA!!!!!!!!! -->
+
+
+
+
+
+
+
+                                <!-- CADASTRO DE FORNECEDORES -->
+
+
             <div id="aba-fornecedores" class="aba">
                 <div class="bg-white p-6 rounded-2xl shadow-sm border mb-6">
-                    <h2 class="text-lg font-bold mb-4">Cadastrar Fornecedor (demo)</h2>
-                    <p class="text-xs text-gray-400">Modo HTML: fornecedores não estão persistidos nesta versão.</p>
-                </div>
-            </div>
-
-            <div id="aba-perfil" class="aba">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    <div class="bg-white p-6 rounded-2xl shadow-sm border">
-                        <h2 class="text-lg font-black mb-4">Minha Conta</h2>
-                        <div class="space-y-2 text-sm">
-                            <div class="flex items-center justify-between">
-                                <span class="text-gray-500 font-bold">Nome</span>
-                                <span id="perfil-nome" class="font-black text-gray-800">—</span>
-                            </div>
-                            <div class="flex items-center justify-between">
-                                <span class="text-gray-500 font-bold">Email</span>
-                                <span id="perfil-email" class="font-mono text-xs text-gray-700">—</span>
-                            </div>
-                        </div>
-
-                        <div class="mt-6 flex gap-3">
-                            <button onclick="logout()" class="flex-1 bg-gray-100 text-gray-700 py-2 rounded-lg font-black">Sair</button>
-                            <button onclick="carregarSessaoUsuario(true)" class="flex-1 bg-blue-600 text-white py-2 rounded-lg font-black">Atualizar</button>
-                        </div>
-                    </div>
-
-                    <div class="bg-white p-6 rounded-2xl shadow-sm border">
-                        <h2 class="text-lg font-black mb-4">Editar Perfil</h2>
-
-                        <div class="space-y-3">
-                            <div>
-                                <label class="text-xs text-gray-500 block font-bold">Nome</label>
-                                <input id="perfil-input-nome" type="text" class="w-full p-2 border rounded-lg" placeholder="Seu nome">
-                            </div>
-
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                                <div>
-                                    <label class="text-xs text-gray-500 block font-bold">Senha atual</label>
-                                    <input id="perfil-senha-atual" type="password" class="w-full p-2 border rounded-lg" placeholder="••••••">
-                                </div>
-                                <div>
-                                    <label class="text-xs text-gray-500 block font-bold">Nova senha</label>
-                                    <input id="perfil-senha-nova" type="password" class="w-full p-2 border rounded-lg" placeholder="mín. 6 caracteres">
-                                </div>
-                                <div>
-                                    <label class="text-xs text-gray-500 block font-bold">Confirmar</label>
-                                    <input id="perfil-senha-confirm" type="password" class="w-full p-2 border rounded-lg" placeholder="repita a nova senha">
-                                </div>
-                            </div>
-
-                            <button onclick="salvarPerfil()" class="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg font-black">Salvar alterações</button>
-                            <p class="text-[11px] text-gray-400">Dica: para alterar só o nome, deixe os campos de senha em branco.</p>
-                        </div>
+                    <h2 class="text-lg font-bold mb-4">Cadastrar Fornecedor</h2>
+                    <div class="flex gap-4">
+                        <input type="text" id="forn-nome" placeholder="Razão Social" class="flex-1 p-2 border rounded-lg">
+                        <input type="text" id="forn-cnpj" maxlength="18" oninput="mascaraCNPJ(this)" placeholder="00.000.000/0000-00" class="w-48 p-2 border rounded-lg font-mono">
+                        <button onclick="cadastrarFornecedor()" class="bg-green-600 text-white px-6 py-2 rounded-lg font-bold">Salvar</button>
                     </div>
                 </div>
+                <div class="bg-white rounded-2xl shadow-sm border overflow-hidden">
+                    <table class="w-full">
+                        <thead class="bg-gray-50 border-b">
+                            <tr class="text-left text-xs text-gray-500 uppercase">
+                                <th class="p-4">Nome / Fornecedor</th>
+                                <th class="p-4">CNPJ</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabela-fornecedores-body"></tbody>
+                    </table>
+                </div>
             </div>
-
         </main>
-
-        <footer class="h-12 bg-white border-t px-8 flex items-center justify-between text-gray-500 text-xs shrink-0">
-            <div class="flex items-center gap-4">
-                <span class="font-bold text-gray-700">FATEC Ipiranga</span>
-                <span>|</span>
-                <p>Logística PI - 2026</p>
-            </div>
-            <div class="flex items-center gap-2">
-                <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                <span class="font-bold">Modo HTML</span>
-            </div>
-        </footer>
     </div>
+
+                                    <!-- CADASTRO DE FORNECEDORES -->
+
+
+
+                                  <!-- AREA DE PERSONALIZAÇÃO -->
+
+<div id="aba-perfil" class="aba">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <div class="md:col-span-2 space-y-6">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                <h2 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                    <i data-lucide="user" class="text-blue-500 w-5 h-5"></i> Informações do Perfil
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="space-y-1">
+                        <label class="text-[10px] font-bold text-gray-400 uppercase">Nome Completo</label>
+                        <input type="text" id="pref-nome" class="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all text-sm">
+                    </div>
+                    <div class="space-y-1">
+                        <label class="text-[10px] font-bold text-gray-400 uppercase">Cargo / Departamento</label>
+                        <input type="text" id="pref-cargo" class="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all text-sm">
+                    </div>
+                    <div class="md:col-span-2 space-y-1">
+                        <label class="text-[10px] font-bold text-gray-400 uppercase">E-mail Corporativo</label>
+                        <input type="email" id="pref-email" class="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all text-sm">
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                <h2 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                    <i data-lucide="shield-check" class="text-red-500 w-5 h-5"></i> Segurança da Conta
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="space-y-1">
+                        <label class="text-[10px] font-bold text-gray-400 uppercase">Nova Senha</label>
+                        <input type="password" id="pref-senha" placeholder="••••••••" class="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-red-500 outline-none transition-all text-sm">
+                    </div>
+                    <div class="space-y-1">
+                        <label class="text-[10px] font-bold text-gray-400 uppercase">Confirmar Nova Senha</label>
+                        <input type="password" id="pref-senha-confirma" placeholder="••••••••" class="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-red-500 outline-none transition-all text-sm">
+                    </div>
+                </div>
+                <p class="text-[10px] text-gray-400 mt-3 italic">* A senha deve conter pelo menos 8 caracteres.</p>
+            </div>
+        </div>
+
+        <div class="space-y-6">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                <h2 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                    <i data-lucide="palette" class="text-purple-500 w-5 h-5"></i> Sistema
+                </h2>
+                <div class="space-y-4">
+                    <div class="space-y-1">
+                        <label class="text-[10px] font-bold text-gray-400 uppercase">Tema de Cores</label>
+                        <select id="pref-tema" class="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm outline-none cursor-pointer">
+                            <option value="padrao">Azul LogiHub (Padrão)</option>
+                            <option value="dark">Escuro (Em breve)</option>
+                        </select>
+                    </div>
+                    <button onclick="salvarPreferencias()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition-all shadow-lg shadow-blue-100 flex items-center justify-center gap-2">
+                        <i data-lucide="save" class="w-4 h-4"></i> Salvar Tudo
+                    </button>
+                   <button onclick="logout()" class="w-full bg-gray-100 hover:bg-red-50 hover:text-red-600 text-gray-500 font-bold py-3 rounded-xl transition-all flex items-center justify-center gap-2">
+    <i data-lucide="log-out" class="w-4 h-4"></i> Encerrar Sessão
+</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+   <!-- AREA DE PERSONALIZAÇÃO -->
+
+
+
+
+                             <!-- ÁREA DE LANÇAMENTO DE PEDIDOS -->
 
     <div id="modal-container" class="modal-overlay">
         <div class="modal-card">
-            <h2 class="text-xl font-bold mb-4">📦 Novo Pedido Logístico</h2>
+            <h2 id="modal-titulo" class="text-xl font-bold mb-4">📦 Novo Pedido Logístico</h2>
             <div class="space-y-3">
                 <input type="text" id="form-cliente" placeholder="Nome do Destinatário" class="w-full p-2 border rounded-lg outline-blue-500">
+                
+                <select id="form-fornecedor" class="w-full p-2 border rounded-lg bg-gray-50">
+                    <option value="">Selecione um Fornecedor...</option>
+                </select>
 
                 <div class="flex gap-2">
-                    <input type="text" id="form-valor" placeholder="R$ 0,00" oninput="formatarValor(this)" class="flex-1 p-2 border rounded-lg">
+                    <input type="number" id="form-valor" placeholder="Valor (R$)" class="flex-1 p-2 border rounded-lg">
                     <select id="form-parcelado" class="p-2 border rounded-lg" onchange="toggleParcelas()">
                         <option value="nao">À Vista</option>
                         <option value="sim">Parcelado</option>
@@ -189,69 +272,22 @@
                     <option value="Entregue">Entregue</option>
                 </select>
 
+                <div class="mt-4 p-3 bg-purple-50 rounded-xl border border-purple-100">
+                    <button onclick="chamarIA()" id="btn-ia" class="w-full text-[10px] font-bold text-purple-700 flex items-center justify-center gap-2 uppercase">
+                        <i data-lucide="sparkles" class="w-3 h-3"></i> Sugerir Status via IA
+                    </button>
+                </div>
+
                 <div class="flex gap-3 mt-6">
-                    <button onclick="salvarNovoPedido()" class="flex-1 bg-blue-600 text-white py-2 rounded-lg font-bold">Cadastrar</button>
+                    <button id="btn-salvar" onclick="salvarNovoPedido()" class="flex-1 bg-blue-600 text-white py-2 rounded-lg font-bold">Cadastrar</button>
                     <button onclick="toggleModal(false)" class="flex-1 bg-gray-100 text-gray-500 py-2 rounded-lg font-bold">Voltar</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- MODAL DE EDIÇÃO DE PEDIDO -->
-    <div id="modal-editar-pedido" class="modal-overlay">
-        <div class="modal-card">
-            <h2 class="text-xl font-bold mb-4">✏️ Editar Pedido</h2>
-            <div class="space-y-3">
-                <div class="grid grid-cols-2 gap-3">
-                    <div>
-                        <label class="text-xs text-gray-500 block font-bold">ID do Pedido</label>
-                        <input type="text" id="modal-editar-id" disabled class="w-full p-2 border rounded-lg bg-gray-100 text-gray-500">
-                    </div>
-                    <div>
-                        <label class="text-xs text-gray-500 block font-bold">Cliente</label>
-                        <input type="text" id="modal-editar-cliente" disabled class="w-full p-2 border rounded-lg bg-gray-100 text-gray-500">
-                    </div>
-                </div>
+                                       <!-- ÁREA DE LANÇAMENTO DE PEDIDOS -->
 
-                <div>
-                    <label class="text-xs text-gray-500 block font-bold">Valor Total (R$)</label>
-                    <input type="text" id="modal-editar-valor" placeholder="R$ 0,00" oninput="formatarValor(this)" class="w-full p-2 border rounded-lg">
-                </div>
-
-                <div class="grid grid-cols-2 gap-3">
-                    <div>
-                        <label class="text-xs text-gray-500 block font-bold">Status</label>
-                        <select id="modal-editar-status" class="w-full p-2 border rounded-lg">
-                            <option value="Pendente">Pendente</option>
-                            <option value="Em Rota">Em Rota</option>
-                            <option value="Entregue">Entregue</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="text-xs text-gray-500 block font-bold">Parcelado</label>
-                        <select id="modal-editar-parcelado" class="w-full p-2 border rounded-lg" onchange="toggleModalParcelas()">
-                            <option value="false">Não</option>
-                            <option value="true">Sim</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div id="modal-editar-div-parcelas" class="hidden">
-                    <label class="text-xs text-gray-500 block font-bold">Número de parcelas:</label>
-                    <input type="number" id="modal-editar-num-parcelas" min="2" max="12" value="2" class="w-full p-2 border rounded-lg">
-                </div>
-
-                <div class="flex gap-3 mt-6">
-                    <button onclick="salvarEdicaoPedidoModal()" class="flex-1 bg-green-600 text-white py-2 rounded-lg font-bold flex items-center justify-center gap-2">
-                        <i data-lucide="check" class="w-4 h-4"></i> Salvar
-                    </button>
-                    <button onclick="toggleModalEdicao(false)" class="flex-1 bg-gray-100 text-gray-500 py-2 rounded-lg font-bold">Cancelar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script src="./js/storage.js"></script>
-    <script src="./js/dashboard.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

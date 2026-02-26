@@ -46,6 +46,6 @@ function irParaDashboard() {
 
 
     // Redireciona para o arquivo index.html
-    window.location.href = "index.html"; 
+    window.location.href = "dashboard.html"; 
 }
 
