@@ -173,9 +173,8 @@
                                   <!-- AREA DE PERSONALIZAÇÃO -->
 
 <div id="aba-perfil" class="aba">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        
-        <div class="md:col-span-2 space-y-6">
+    <div class="flex justify-center">
+        <div class="w-full max-w-3xl space-y-6">
             <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
                 <h2 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
                     <i data-lucide="user" class="text-blue-500 w-5 h-5"></i> Informações do Perfil
@@ -211,29 +210,6 @@
                     </div>
                 </div>
                 <p class="text-[10px] text-gray-400 mt-3 italic">* A senha deve conter pelo menos 8 caracteres.</p>
-            </div>
-        </div>
-
-        <div class="space-y-6">
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                <h2 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
-                    <i data-lucide="palette" class="text-purple-500 w-5 h-5"></i> Sistema
-                </h2>
-                <div class="space-y-4">
-                    <div class="space-y-1">
-                        <label class="text-[10px] font-bold text-gray-400 uppercase">Tema de Cores</label>
-                        <select id="pref-tema" class="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm outline-none cursor-pointer">
-                            <option value="padrao">Azul LogiHub (Padrão)</option>
-                            <option value="dark">Escuro (Em breve)</option>
-                        </select>
-                    </div>
-                    <button onclick="salvarPreferencias()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition-all shadow-lg shadow-blue-100 flex items-center justify-center gap-2">
-                        <i data-lucide="save" class="w-4 h-4"></i> Salvar Tudo
-                    </button>
-                   <button onclick="logout()" class="w-full bg-gray-100 hover:bg-red-50 hover:text-red-600 text-gray-500 font-bold py-3 rounded-xl transition-all flex items-center justify-center gap-2">
-    <i data-lucide="log-out" class="w-4 h-4"></i> Encerrar Sessão
-</button>
-                </div>
             </div>
         </div>
     </div>

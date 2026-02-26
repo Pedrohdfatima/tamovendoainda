@@ -25,20 +25,37 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         
         valorInput.addEventListener('input', () => {
-            // formata enquanto digita
-            const n = parseFloat(valorInput.value.replace(/[^0-9,.-]/g, '').replace(',', '.'));
-            if (!isNaN(n) && valorInput.value.length > 0) {
-                valorInput.value = formatarMoeda(n);
+            // formata enquanto digita - extrai apenas números e formata
+            let rawValue = valorInput.value.replace(/[^0-9]/g, '');
+            
+            if (rawValue.length === 0) {
+                valorInput.value = '';
+                return;
             }
+            
+            // converte para número (dividindo por 100 para centavos)
+            const numValue = parseInt(rawValue) / 100;
+            valorInput.value = formatarMoeda(numValue);
         });
         
         valorInput.addEventListener('blur', () => {
             // ao sair do campo, garante formatação
             const n = parseFloat(valorInput.value.replace(/[^0-9,.-]/g, '').replace(',', '.'));
-            if (!isNaN(n)) {
+            if (!isNaN(n) && n > 0) {
                 valorInput.value = formatarMoeda(n);
+            } else {
+                valorInput.value = '';
             }
         });
+    }
+    
+    // validar login ao carregar dashboard
+    if (document.getElementById('corpo-tabela-pedidos')) {
+        const userLogado = localStorage.getItem('logihub_user_logado');
+        if (!userLogado) {
+            alert('Acesso negado! Faça login primeiro.');
+            window.location.href = 'index.html';
+        }
     }
 });
 
@@ -319,6 +336,6 @@ function logout() {
 
     if (confirm("Deseja realmente sair do sistema?")) {
         // Redireciona para a sua página de cadastro/login
-        window.location.href = "cadastro.html";
+        window.location.href = "index.html";
     }
 }

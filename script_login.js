@@ -42,6 +42,10 @@ function irParaDash(event) {
     if (event && event.preventDefault) {
         event.preventDefault();
     }
+    
+    // marca usuário como logado
+    localStorage.setItem('logihub_user_logado', 'true');
+    
     console.log("Redirecionando para o Dashboard...");
     window.location.href = "dashboard.html";
 }
