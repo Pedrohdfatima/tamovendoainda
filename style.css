@@ -289,3 +289,46 @@ area de personalização */
 input:focus {
     background-color: white !important;
 }
+
+/* RESPONSIVIDADE GLOBAL */
+@media (max-width: 900px) {
+    body {
+        flex-direction: column;
+        overflow: auto;
+    }
+    .sidebar {
+        width: 100vw !important;
+        min-width: unset;
+        max-width: unset;
+        position: static;
+        border-radius: 0;
+    }
+    .flex-col-container {
+        width: 100vw;
+        padding: 0;
+    }
+    main {
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 600px) {
+    body {
+        font-size: 15px;
+    }
+    header, footer {
+        padding: 0 0.5rem;
+        font-size: 0.95em;
+        height: auto;
+    }
+    .kpi-card {
+        padding: 1rem;
+        font-size: 0.95em;
+    }
+    .form-container form {
+        padding: 0.5rem !important;
+    }
+    h1 {
+        font-size: 1.5rem !important;
+    }
+}
