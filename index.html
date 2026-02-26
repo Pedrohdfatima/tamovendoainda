@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - LogiHub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="stylecad.css">
+    <link rel="stylesheet" href="script_login.js">
+</head>
+<body class="bg-gray-100 h-screen flex items-center justify-center p-4">
+
+         <!-- AREA DE CADASTRO-->
+    <div class="container-login relative overflow-hidden bg-white rounded-3xl shadow-2xl w-full max-w-4xl min-h-[550px]" id="main-container">
+        
+        <div class="form-container sign-up absolute top-0 left-0 w-1/2 h-full transition-all duration-700 ease-in-out opacity-0 z-1">
+            <form action="#" class="flex flex-col items-center justify-center h-full px-10 text-center bg-white">
+                <h1 class="text-3xl font-black mb-4">Criar Conta</h1>
+                <div class="flex gap-2 mb-4">
+                    <button type="button" class="border rounded-lg p-2 hover:bg-gray-50"><i data-lucide="github" class="w-5 h-5 text-gray-600"></i></button>
+                    <button type="button" class="border rounded-lg p-2 hover:bg-gray-50"><i data-lucide="linkedin" class="w-5 h-5 text-gray-600"></i></button>
+                </div>
+                <span class="text-xs text-gray-400 mb-4 uppercase font-bold tracking-tighter">ou use seu email para registro</span>
+                <input type="text" placeholder="Nome" class="w-full p-3 mb-2 bg-gray-50 rounded-lg outline-none text-sm border focus:border-indigo-500">
+                <input type="email" placeholder="Email" class="w-full p-3 mb-2 bg-gray-50 rounded-lg outline-none text-sm border focus:border-indigo-500">
+                <input type="password" placeholder="Senha" class="w-full p-3 mb-4 bg-gray-50 rounded-lg outline-none text-sm border focus:border-indigo-500">
+               <button type="button" onclick="irParaDashboard()" class="bg-indigo-700 text-white px-10 py-3 rounded-lg font-black uppercase text-xs tracking-widest hover:bg-indigo-800 transition">
+                   
+</button>
+  <!-- Cadastrar -->
+
+
+
+
+
+                                <!-- AREA DE LOGIN -->
+            </form>
+        </div>
+
+        <div class="form-container sign-in absolute top-0 left-0 w-1/2 h-full transition-all duration-700 ease-in-out z-2">
+            <form action="#" class="flex flex-col items-center justify-center h-full px-10 text-center bg-white">
+                <h1 class="text-3xl font-black mb-4 tracking-tighter">Entrar</h1>
+                <div class="flex gap-2 mb-4">
+                    <button type="button" class="border rounded-lg p-2 text-gray-400 hover:bg-gray-50 font-bold text-xs w-9 h-9 flex items-center justify-center">G+</button>
+                    <button type="button" class="border rounded-lg p-2 text-gray-400 hover:bg-gray-50 w-9 h-9 flex items-center justify-center"><i data-lucide="facebook" class="w-5 h-5"></i></button>
+                    <button type="button" class="border rounded-lg p-2 text-gray-400 hover:bg-gray-50 w-9 h-9 flex items-center justify-center"><i data-lucide="github" class="w-5 h-5"></i></button>
+                    <button type="button" class="border rounded-lg p-2 text-gray-400 hover:bg-gray-50 w-9 h-9 flex items-center justify-center"><i data-lucide="linkedin" class="w-5 h-5"></i></button>
+                </div>
+                <span class="text-xs text-gray-400 mb-4 uppercase font-bold tracking-tighter">ou use sua senha de email</span>
+                <input type="email" placeholder="Email" class="w-full p-3 mb-2 bg-gray-50 rounded-lg outline-none text-sm border focus:border-indigo-500">
+                <input type="password" placeholder="Password" class="w-full p-3 mb-2 bg-gray-50 rounded-lg outline-none text-sm border focus:border-indigo-500">
+                <a href="#" class="text-xs text-gray-400 mb-6 hover:underline">Esqueceu sua senha?</a>
+               <button type="button" onclick="irParaDashboard()" class="bg-indigo-700 text-white px-12 py-3 rounded-lg font-black uppercase text-xs tracking-widest hover:bg-indigo-800 transition">
+  
+</button>
+            </form>
+        </div>
+             <!-- AREA DE LOGIN -->
+
+
+
+
+
+
+
+             <!-- TEXTO REFERENTE A PARTE LATERAL DO CADASTRO -->
+        <div class="overlay-container absolute top-0 left-1/2 w-1/2 h-full overflow-hidden transition-all duration-700 ease-in-out z-[100]">
+            <div class="overlay bg-indigo-700 text-white relative -left-full h-full w-[200%] transform translate-x-0 transition-all duration-700 ease-in-out">
+                
+                <div class="overlay-panel overlay-left absolute flex flex-col items-center justify-center px-10 text-center top-0 h-full w-1/2 transform -translate-x-[20%] transition-all duration-700 ease-in-out">
+                    <h1 class="text-3xl font-black mb-4">Bem-vindo de volta!</h1>
+                    <p class="text-sm mb-8 leading-relaxed">Para manter-se conectado conosco, faça o login com suas informações pessoais</p>
+                    <button class="border-2 border-white px-10 py-2 rounded-lg font-bold uppercase text-xs hover:bg-white hover:text-indigo-700 transition" id="signIn">Entrar</button>
+                </div>
+
+                <div class="overlay-panel overlay-right absolute flex flex-col items-center justify-center px-10 text-center top-0 h-full w-1/2 right-0 transform translate-x-0 transition-all duration-700 ease-in-out">
+                    <h1 class="text-3xl font-black mb-4">Olá!</h1>
+                    <p class="text-sm mb-8 leading-relaxed">Registre-se com seus dados pessoais para usar todos os recursos do site</p>
+                    <button class="border-2 border-white px-10 py-2 rounded-lg font-bold uppercase text-xs hover:bg-white hover:text-indigo-700 transition" id="signUp">Inscrever</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+        <!-- TEXTO REFERENTE A PARTE LATERAL DO CADASTRO -->
+    <script src="script_login.js"></script>
+</body>
+</html>

@@ -1,0 +1,170 @@
+/* Copiado de static/css/style.css para modo 100% HTML */
+
+/* Configurações Gerais */
+:root {
+    --sidebar-bg: #0f172a;
+    --primary-blue: #2563eb;
+    --success-green: #16a34a;
+    --warning-yellow: #ca8a04;
+    --border-color: #e2e8f0;
+}
+
+/* Reset de Layout */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden; /* Impede a rolagem do corpo inteiro */
+    display: flex;
+    font-family: sans-serif;
+}
+
+/* Sidebar (Esquerda Fixa) */
+.sidebar {
+    background-color: var(--sidebar-bg);
+    width: 256px; /* 64 em tailwind */
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    z-index: 20;
+}
+
+/* Container da Direita (Flex Vertical) */
+.flex-col-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+}
+
+/* Header (Topo Fixo) */
+header {
+    height: 64px;
+    background: white;
+    border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0; /* Não deixa o header esmagar */
+    z-index: 10;
+}
+
+/* Área Principal (Única parte que rola) */
+main {
+    flex: 1;
+    overflow-y: auto;
+    background-color: #f8fafc;
+    padding: 2rem;
+}
+
+/* Footer (Fundo Fixo) */
+footer {
+    height: 48px; /* Altura fixa */
+    background: white;
+    border-top: 1px solid var(--border-color);
+    flex-shrink: 0; /* Não deixa o footer sumir */
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    padding: 0 2rem;
+}
+
+/* --- ESTILOS DOS COMPONENTES --- */
+
+.nav-btn {
+    width: 100%;
+    text-align: left;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    color: #94a3b8;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    transition: all 0.2s ease;
+    border: none;
+    cursor: pointer;
+    background: transparent;
+}
+
+.nav-btn:hover {
+    background-color: #1e293b;
+    color: #f8fafc;
+}
+
+.nav-btn.active {
+    background-color: var(--primary-blue);
+    color: white;
+    box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.4);
+}
+
+.aba {
+    display: none;
+    animation: fadeIn 0.4s ease-out;
+}
+
+.aba.ativa {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* KPIs */
+#aba-dashboard .grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.kpi-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease;
+    border-bottom: 4px solid var(--border-color);
+}
+
+.kpi-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Status Badges */
+.status-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+.pendente { background-color: #fef9c3; color: #a16207; }
+.em-rota { background-color: #dbeafe; color: #1e40af; }
+.entregue { background-color: #dcfce7; color: #166534; }
+
+/* Modal */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(2px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
+.modal-overlay.flex { display: flex; }
+
+.modal-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    width: 90%;
+    max-width: 450px;
+}
+
+.hidden { display: none !important; }

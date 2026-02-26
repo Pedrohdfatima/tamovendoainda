@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>LogiHub - Dashboard (HTML)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body class="bg-gray-50 h-screen flex overflow-hidden">
+
+    <aside class="sidebar w-64 text-white flex flex-col p-4 shadow-2xl shrink-0">
+        <div class="mb-8 p-2 flex items-center gap-2 border-b border-slate-800 pb-6">
+            <i data-lucide="package" class="text-blue-500"></i>
+            <span class="text-xl font-black tracking-tight">LOGIHUB <span class="text-blue-500">PI</span></span>
+        </div>
+        
+        <nav class="space-y-2">
+            <button onclick="trocarAba('dashboard', this)" class="nav-btn active">
+                <i data-lucide="layout-dashboard" class="w-5 h-5"></i> Dashboard
+            </button>
+            <button onclick="trocarAba('pedidos', this)" class="nav-btn">
+                <i data-lucide="clipboard-list" class="w-5 h-5"></i> Lista de Pedidos
+            </button>
+            <button onclick="trocarAba('fornecedores', this)" class="nav-btn">
+                <i data-lucide="truck" class="w-5 h-5"></i> Fornecedores
+            </button>
+            <button onclick="trocarAba('perfil', this)" class="nav-btn">
+                <i data-lucide="user" class="w-5 h-5"></i> Perfil
+            </button>
+        </nav>
+    </aside>
+
+    <div class="flex-col-container flex-1 flex flex-col h-full overflow-hidden">
+        
+        <header class="h-16 bg-white border-b flex items-center justify-between px-8 shrink-0">
+            <h1 id="titulo-pagina" class="font-bold text-gray-800 text-lg uppercase tracking-wider">Dashboard</h1>
+            <div class="flex items-center gap-3">
+                <div id="header-usuario" class="hidden text-xs font-bold text-gray-600 bg-gray-100 px-3 py-2 rounded-full"></div>
+                <button id="btn-novo-pedido" onclick="toggleModal(true)" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-full font-bold flex gap-2 items-center transition-all">
+                    <i data-lucide="plus" class="w-5 h-5"></i> Novo Pedido
+                </button>
+            </div>
+        </header>
+
+        <main class="flex-1 overflow-y-auto p-8">
+            
+            <div id="aba-dashboard" class="aba ativa">
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-6"> 
+                    <div class="kpi-card bg-white p-6 rounded-2xl shadow-sm border-b-4 border-purple-600">
+                        <p class="text-gray-400 text-xs font-bold uppercase">Valor Total</p>
+                        <h3 id="num-valor-total" class="text-2xl font-black text-purple-600 font-mono">R$ 0,00</h3>
+                    </div>
+                    <div class="kpi-card bg-white p-6 rounded-2xl shadow-sm border-b-4 border-blue-500">
+                        <p class="text-gray-400 text-xs font-bold uppercase">Total Pedidos</p>
+                        <h3 id="num-total" class="text-2xl font-black">0</h3>
+                    </div>
+                    <div class="kpi-card bg-white p-6 rounded-2xl shadow-sm border-b-4 border-yellow-500">
+                        <p class="text-gray-400 text-xs font-bold uppercase">Pendentes</p>
+                        <h3 id="num-pendentes" class="text-2xl font-black">0</h3>
+                    </div>
+                    <div class="kpi-card bg-white p-6 rounded-2xl shadow-sm border-b-4 border-orange-500">
+                        <p class="text-gray-400 text-xs font-bold uppercase">Em Rota</p>
+                        <h3 id="num-rota" class="text-2xl font-black">0</h3>
+                    </div>
+                    <div class="kpi-card bg-white p-6 rounded-2xl shadow-sm border-b-4 border-green-500">
+                        <p class="text-gray-400 text-xs font-bold uppercase">Entregue</p>
+                        <h3 id="num-entregue" class="text-2xl font-black text-green-600">0</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div id="aba-pedidos" class="aba">
+                <div class="bg-white rounded-2xl shadow-sm overflow-hidden border">
+                    <table class="w-full">
+                        <thead class="bg-gray-50 border-b text-gray-500 text-xs uppercase">
+                            <tr>
+                                <th class="p-4 text-left">ID</th>
+                                <th class="p-4 text-left">Cliente / Fornecedor</th>
+                                <th class="p-4 text-left">Valor</th>
+                                <th class="p-4 text-left">Status</th>
+                                <th class="p-4 text-center">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="corpo-tabela-pedidos"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="aba-fornecedores" class="aba">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border mb-6">
+                    <h2 class="text-lg font-bold mb-4">Cadastrar Fornecedor (demo)</h2>
+                    <p class="text-xs text-gray-400">Modo HTML: fornecedores não estão persistidos nesta versão.</p>
+                </div>
+            </div>
+
+            <div id="aba-perfil" class="aba">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border">
+                        <h2 class="text-lg font-black mb-4">Minha Conta</h2>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex items-center justify-between">
+                                <span class="text-gray-500 font-bold">Nome</span>
+                                <span id="perfil-nome" class="font-black text-gray-800">—</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-gray-500 font-bold">Email</span>
+                                <span id="perfil-email" class="font-mono text-xs text-gray-700">—</span>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 flex gap-3">
+                            <button onclick="logout()" class="flex-1 bg-gray-100 text-gray-700 py-2 rounded-lg font-black">Sair</button>
+                            <button onclick="carregarSessaoUsuario(true)" class="flex-1 bg-blue-600 text-white py-2 rounded-lg font-black">Atualizar</button>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border">
+                        <h2 class="text-lg font-black mb-4">Editar Perfil</h2>
+
+                        <div class="space-y-3">
+                            <div>
+                                <label class="text-xs text-gray-500 block font-bold">Nome</label>
+                                <input id="perfil-input-nome" type="text" class="w-full p-2 border rounded-lg" placeholder="Seu nome">
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                                <div>
+                                    <label class="text-xs text-gray-500 block font-bold">Senha atual</label>
+                                    <input id="perfil-senha-atual" type="password" class="w-full p-2 border rounded-lg" placeholder="••••••">
+                                </div>
+                                <div>
+                                    <label class="text-xs text-gray-500 block font-bold">Nova senha</label>
+                                    <input id="perfil-senha-nova" type="password" class="w-full p-2 border rounded-lg" placeholder="mín. 6 caracteres">
+                                </div>
+                                <div>
+                                    <label class="text-xs text-gray-500 block font-bold">Confirmar</label>
+                                    <input id="perfil-senha-confirm" type="password" class="w-full p-2 border rounded-lg" placeholder="repita a nova senha">
+                                </div>
+                            </div>
+
+                            <button onclick="salvarPerfil()" class="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg font-black">Salvar alterações</button>
+                            <p class="text-[11px] text-gray-400">Dica: para alterar só o nome, deixe os campos de senha em branco.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <footer class="h-12 bg-white border-t px-8 flex items-center justify-between text-gray-500 text-xs shrink-0">
+            <div class="flex items-center gap-4">
+                <span class="font-bold text-gray-700">FATEC Ipiranga</span>
+                <span>|</span>
+                <p>Logística PI - 2026</p>
+            </div>
+            <div class="flex items-center gap-2">
+                <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                <span class="font-bold">Modo HTML</span>
+            </div>
+        </footer>
+    </div>
+
+    <div id="modal-container" class="modal-overlay">
+        <div class="modal-card">
+            <h2 class="text-xl font-bold mb-4">📦 Novo Pedido Logístico</h2>
+            <div class="space-y-3">
+                <input type="text" id="form-cliente" placeholder="Nome do Destinatário" class="w-full p-2 border rounded-lg outline-blue-500">
+
+                <div class="flex gap-2">
+                    <input type="text" id="form-valor" placeholder="R$ 0,00" oninput="formatarValor(this)" class="flex-1 p-2 border rounded-lg">
+                    <select id="form-parcelado" class="p-2 border rounded-lg" onchange="toggleParcelas()">
+                        <option value="nao">À Vista</option>
+                        <option value="sim">Parcelado</option>
+                    </select>
+                </div>
+
+                <div id="div-parcelas" class="hidden">
+                    <label class="text-xs text-gray-500">Número de parcelas:</label>
+                    <input type="number" id="form-num-parcelas" min="2" max="12" value="2" class="w-full p-2 border rounded-lg">
+                </div>
+
+                <textarea id="form-obs" placeholder="Observações (ex: Cuidado frágil)" class="w-full p-2 border rounded-lg h-20 text-sm"></textarea>
+
+                <select id="form-status" class="w-full p-2 border rounded-lg">
+                    <option value="Pendente">Pendente</option>
+                    <option value="Em Rota">Em Rota</option>
+                    <option value="Entregue">Entregue</option>
+                </select>
+
+                <div class="flex gap-3 mt-6">
+                    <button onclick="salvarNovoPedido()" class="flex-1 bg-blue-600 text-white py-2 rounded-lg font-bold">Cadastrar</button>
+                    <button onclick="toggleModal(false)" class="flex-1 bg-gray-100 text-gray-500 py-2 rounded-lg font-bold">Voltar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE EDIÇÃO DE PEDIDO -->
+    <div id="modal-editar-pedido" class="modal-overlay">
+        <div class="modal-card">
+            <h2 class="text-xl font-bold mb-4">✏️ Editar Pedido</h2>
+            <div class="space-y-3">
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="text-xs text-gray-500 block font-bold">ID do Pedido</label>
+                        <input type="text" id="modal-editar-id" disabled class="w-full p-2 border rounded-lg bg-gray-100 text-gray-500">
+                    </div>
+                    <div>
+                        <label class="text-xs text-gray-500 block font-bold">Cliente</label>
+                        <input type="text" id="modal-editar-cliente" disabled class="w-full p-2 border rounded-lg bg-gray-100 text-gray-500">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="text-xs text-gray-500 block font-bold">Valor Total (R$)</label>
+                    <input type="text" id="modal-editar-valor" placeholder="R$ 0,00" oninput="formatarValor(this)" class="w-full p-2 border rounded-lg">
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="text-xs text-gray-500 block font-bold">Status</label>
+                        <select id="modal-editar-status" class="w-full p-2 border rounded-lg">
+                            <option value="Pendente">Pendente</option>
+                            <option value="Em Rota">Em Rota</option>
+                            <option value="Entregue">Entregue</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="text-xs text-gray-500 block font-bold">Parcelado</label>
+                        <select id="modal-editar-parcelado" class="w-full p-2 border rounded-lg" onchange="toggleModalParcelas()">
+                            <option value="false">Não</option>
+                            <option value="true">Sim</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="modal-editar-div-parcelas" class="hidden">
+                    <label class="text-xs text-gray-500 block font-bold">Número de parcelas:</label>
+                    <input type="number" id="modal-editar-num-parcelas" min="2" max="12" value="2" class="w-full p-2 border rounded-lg">
+                </div>
+
+                <div class="flex gap-3 mt-6">
+                    <button onclick="salvarEdicaoPedidoModal()" class="flex-1 bg-green-600 text-white py-2 rounded-lg font-bold flex items-center justify-center gap-2">
+                        <i data-lucide="check" class="w-4 h-4"></i> Salvar
+                    </button>
+                    <button onclick="toggleModalEdicao(false)" class="flex-1 bg-gray-100 text-gray-500 py-2 rounded-lg font-bold">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/storage.js"></script>
+    <script src="./js/dashboard.js"></script>
+</body>
+</html>
