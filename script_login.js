@@ -49,3 +49,12 @@ function irParaDash() {
     window.location.href = "dashboard.html"; 
 }
 
+// nova versão com tratamento de evento e prevenção de envio de formulário
+function irParaDash(event) {
+    if (event && event.preventDefault) {
+        event.preventDefault();
+    }
+    console.log("Redirecionando para o Dashboard...");
+    window.location.href = "dashboard.html";
+}
+
